@@ -23,6 +23,6 @@ public class BasicCamera : MonoBehaviour
 		}
 		float yAvg = (totalY) / _waveCount;
 
-		transform.position = new Vector3 (0, yAvg, -10);
+		transform.position = new Vector3 (0, yAvg+5f, -10);
 	}
 }

@@ -17,13 +17,6 @@ public class CubeManager : MonoBehaviour {
 		RandomLayout (numCubes);
 	}
 
-	public void SpawnNewCube (Vector3 oldPos)
-	{
-		Debug.Log ("SpawnNewCube");
-		//Vector3 spawnPoint = new Vector3 (Random.Range(-4.5f,4.5f), oldPos.y + Random.Range(12.0f, 17.0f), oldPos.z);
-		//Instantiate(cube, spawnPoint, Quaternion.identity, null);
-	}
-
 	public void RandomLayout (int _numCubes)
 	{
 		float spawnPosY = cubeStartY;
