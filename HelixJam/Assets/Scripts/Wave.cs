@@ -15,6 +15,7 @@ public class Wave : MonoBehaviour
 		GetComponent<Renderer> ().enabled = false;
 
 		_positive = transform.position.x >= 0;
+		Debug.Log (_positive);
 	}
 
 	public void ApplyDelta(Vector3 delta)
@@ -40,5 +41,14 @@ public class Wave : MonoBehaviour
 		_positive = !_positive;
 
 		LineCrossed (this);
+	}
+
+	void OnTriggerEnter (Collider col)
+	{
+		if (col.gameObject.tag == "cube") {
+			Cube hitCube = (Cube) col.gameObject.GetComponent<Cube>();
+			if (hitCube.cubeType[0] == transform.name[0])
+				Destroy (hitCube.gameObject);
+		}
 	}
 }
