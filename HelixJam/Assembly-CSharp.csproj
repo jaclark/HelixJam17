@@ -52,6 +52,8 @@
      <Compile Include="Assets\Scripts\CubeManager.cs" />
      <Compile Include="Assets\Scripts\Wave.cs" />
      <Compile Include="Assets\Scripts\WaveMaster.cs" />
+     <Compile Include="Assets\Wall.cs" />
+     <Compile Include="Assets\WallManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity_5_3_5f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

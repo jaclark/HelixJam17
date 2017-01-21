@@ -27,7 +27,6 @@ public class Wave : MonoBehaviour
 		GetComponent<Renderer> ().enabled = false;
 
 		_positive = transform.position.x >= 0;
-		Debug.Log (_positive);
 	}
 
 	public void Init(float jumpStrength, float boostStrength, float gravity, float boostDecel, float speed, float boostGravity)
@@ -125,9 +124,15 @@ public class Wave : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "cube") {
-			Cube hitCube = (Cube) col.gameObject.GetComponent<Cube>();
-			if (hitCube.cubeType[0] == transform.name[0])
+			Cube hitCube = (Cube)col.gameObject.GetComponent<Cube> ();
+			if (hitCube.cubeType [0] == transform.name [0])
 				Destroy (hitCube.gameObject);
+		} else if (col.gameObject.tag == "wall") {
+			Wall hitWall = (Wall)col.gameObject.GetComponent<Wall> ();
+			Renderer wallRend = hitWall.GetComponent<Renderer> ();
+			//wallRend.material.shader = Shader.Find ("Specular");
+			wallRend.material.SetColor ("_Color", Color.gray);
+			Debug.Log (wallRend.material.color);
 		}
 	}
 }
