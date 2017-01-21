@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\BasicCamera.cs" />
      <Compile Include="Assets\Scripts\ControlledWave.cs" />
      <Compile Include="Assets\Scripts\Wave.cs" />
+     <Compile Include="Assets\Scripts\WaveMaster.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity5.5.0f3/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

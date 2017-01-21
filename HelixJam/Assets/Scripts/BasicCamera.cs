@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class BasicCamera : MonoBehaviour 
 {
-	public Transform aWave = null;
-	public Transform bWave = null;
+	private List<Wave> _waves = null;
+	private int _waveCount = 0;
+
+	public void Init(List<Wave> waves)
+	{
+		_waves = waves;
+		_waveCount = _waves.Count;
+	}
 
 	private void LateUpdate()
 	{
-		float yAvg = (aWave.position.y + bWave.position.y) / 2f;
+		float totalY = 0.0f;
+
+		for (int i = 0; i < _waves.Count; ++i)
+		{
+			totalY += _waves [i].transform.position.y;
+		}
+		float yAvg = (totalY) / _waveCount;
 
 		transform.position = new Vector3 (0, yAvg, -10);
 	}
