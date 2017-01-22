@@ -24,6 +24,7 @@ public class AudioService : MonoBehaviour
     public AudioClip Middle;
     public AudioClip HitWall;
 	public AudioClip NoGrav;
+	public AudioClip ExtraLife;
 
     public void PlayJump()
     {
@@ -58,6 +59,11 @@ public class AudioService : MonoBehaviour
 	public void PlayNoGrav()
 	{
 		PlaySound(NoGrav);
+	}
+
+	public void PlayExtraLife()
+	{
+		PlaySound(ExtraLife);
 	}
 
     private AudioSource PlaySound(AudioClip clip)

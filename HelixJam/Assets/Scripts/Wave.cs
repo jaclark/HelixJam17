@@ -16,12 +16,16 @@ public class Wave : MonoBehaviour
 
 	private bool _positive = true;
 	private TrailRenderer _trailRenderer;
+	private float _maxWidth;
+	private float _widthChanger;
 
 	private void Start()
 	{
 		GetComponent<Renderer> ().enabled = false;
 
 		_trailRenderer = GetComponent<TrailRenderer> ();
+		_maxWidth = _trailRenderer.startWidth;
+		_widthChanger = _maxWidth / ScoreManager.Instance.Lives;
 
 		_positive = transform.position.x >= 0;
 	}
@@ -52,13 +56,16 @@ public class Wave : MonoBehaviour
 	}
 
 	public void GrowTrail() {
-		if(_trailRenderer.startWidth < 0.4f) 
+		if(_trailRenderer.startWidth < _maxWidth) 
 			_trailRenderer.startWidth += 0.1f;
 	}
 
 	public void ShrinkTrail() {
-		if(_trailRenderer.startWidth > 0.0f)
-			_trailRenderer.startWidth -= 0.1f;
+		if (_trailRenderer.startWidth > 0.0f)
+			_trailRenderer.startWidth -= _widthChanger;
+		else if (_trailRenderer.startWidth < 0.0f) {
+			_trailRenderer.startWidth = 0.0f;
+		}
 	}
 
 	void OnTriggerEnter (Collider col)
