@@ -25,12 +25,18 @@ public class ScoreManager : MonoBehaviour {
 	private int _extraLifeCountOrange = 3;
 	public Text OrangeScoreText;
 	public Text BlueScoreText;
+	public Text DistanceScoreText;
 	public GameObject FailureScreen;
 	public Text FailureText;
 	public Wave AWave;
 	public Wave BWave;
+	public float TotalDistance = 0f; 
 
-	public int Lives = 3;
+	[HideInInspector] public int Lives = 3;
+
+	void Update() {
+		DistanceScoreText.text = "Score: " + TotalDistance.ToString();
+	}
 
 	public void IncreaseBlueScore() {
 		_blueScore++;
