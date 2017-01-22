@@ -10,12 +10,14 @@ public class Cube : MonoBehaviour
 	public ParticleSystem DestroyedParticles;
 	public string cubeType;
 
+	public static int nextMatIndex = 0;
+
 	// Use this for initialization
 	void Start () {
 		float randScale = Random.Range (0.5f, 2.0f);
 		transform.localScale += new Vector3 (randScale, randScale, 0.0f);
-		int cubeMatIndex = Random.Range (0, 2);
-		renderer.material = cubeMaterials [cubeMatIndex];
+		int cubeMatIndex = nextMatIndex++;
+		renderer.material = cubeMaterials [cubeMatIndex%2];
 		cubeType = renderer.material.ToString ();
 	}
 
