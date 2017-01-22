@@ -7,6 +7,7 @@ public class WaveMaster : MonoBehaviour
 {
 	public List<Wave> waves = null;
 	public BasicCamera basicCamera = null;
+	public CenterLine centerLine = null;
 
 	public float speed = 0.0f;
 	[Range(0.0f, 1.0f)]
@@ -168,6 +169,11 @@ public class WaveMaster : MonoBehaviour
 		for (int i = 0; i < waves.Count; ++i)
 		{
 			waves [i].ApplyDelta (_deltas [i]);
+		}
+
+		if (waves.Count >= 2)
+		{
+			centerLine.SetPositions (waves [0].transform.position.x, waves [1].transform.position.x);
 		}
 	}
 
