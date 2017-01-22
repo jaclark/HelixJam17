@@ -21,13 +21,17 @@ public class WaveMaster : MonoBehaviour
 
 	public float jumpStrength = 0.0f;
 	public int jumpsAllowed = 0;
-	private int _jumps = 0;
+
+	public float zoneForce = 0.0f;
+	private Vector2 _zoneDirection = Vector2.zero;
 
 	public Text debugText = null;
 	public Text jumpText = null;
 
+	private int _jumps = 0;
 	private List<Vector3> _deltas = new List<Vector3> ();
 	private bool _boosting = false;
+	private bool _inNoGrav = false;
 	private float _realBoost = 0.0f;
 
 	private void Start()
@@ -35,6 +39,8 @@ public class WaveMaster : MonoBehaviour
 		for (int i = 0; i < waves.Count; ++i)
 		{
 			waves [i].LineCrossed += OnLineCrossed;
+			waves [i].NoGravZoneEntered += EnableNoGravZone;
+			waves [i].NoGravZoneExited += DisableNoGravZone;
 			_deltas.Add (Vector3.zero);
 		}
 
@@ -62,6 +68,8 @@ public class WaveMaster : MonoBehaviour
 		Gravity ();
 
 		VerticalSpeed ();
+
+		ZoneForce ();
 
 		Apply ();
 	}
@@ -99,6 +107,34 @@ public class WaveMaster : MonoBehaviour
 		}
 	}
 
+	private void EnableZone(Vector2 direction)
+	{
+		_zoneDirection = direction;
+
+	}
+
+	private void DisableZone()
+	{
+		_zoneDirection = Vector2.zero;
+	}
+
+	private void ZoneForce()
+	{
+		for (int i = 0; i < waves.Count; ++i)
+		{
+			if (waves [i].transform.position.x > 0)
+			{
+				Vector3 realZoneDirection = new Vector3 (_zoneDirection.x, _zoneDirection.y, 0);
+				_deltas [i] += realZoneDirection * zoneForce * Time.deltaTime;
+			}
+			else
+			{
+				Vector3 realZoneDirection = new Vector3 (-_zoneDirection.x, _zoneDirection.y, 0);
+				_deltas [i] += realZoneDirection * zoneForce * Time.deltaTime;
+			}
+		}
+	}
+
 	private void Boost()
 	{
 		_jumps--;
@@ -129,10 +165,30 @@ public class WaveMaster : MonoBehaviour
 		}
 	}
 
+	private void EnableNoGravZone (Wave freshWave)
+	{
+		_inNoGrav = true;
+		for (int i = 0; i < waves.Count; ++i)
+		{
+			Vector3 delta = _deltas [i];
+			delta.x = 0.0f;
+			_deltas [i] = delta;
+		}
+	}
+
+	private void DisableNoGravZone (Wave freshWave)
+	{
+		_inNoGrav = false;
+	}
+
 	private void Gravity()
 	{
 		float realGravity = 0.0f;
-		if (_boosting)
+		if (_inNoGrav) 
+		{
+			realGravity = 0.0f;
+		}
+		else if (_boosting)
 		{
 			realGravity = boostGravity;
 		}
@@ -184,6 +240,8 @@ public class WaveMaster : MonoBehaviour
 		for (int i = 0; i < waves.Count; ++i)
 		{
 			waves [i].LineCrossed -= OnLineCrossed;
+			waves [i].NoGravZoneEntered -= EnableNoGravZone;
+			waves [i].NoGravZoneExited -= DisableNoGravZone;
 		}
 	}
 }

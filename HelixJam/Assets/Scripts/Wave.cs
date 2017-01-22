@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class Wave : MonoBehaviour 
 {
 	public Action<Wave> LineCrossed = delegate {};
+	public Action<Wave> NoGravZoneEntered = delegate {};
+	public Action<Wave> NoGravZoneExited = delegate {};
 
 	private bool _positive = true;
 
@@ -52,13 +54,15 @@ public class Wave : MonoBehaviour
 			Wall hitWall = (Wall)col.gameObject.GetComponent<Wall> ();
 			Renderer wallRend = hitWall.GetComponent<Renderer> ();
 			wallRend.material.SetColor ("_Color", Color.gray);
+		} else if (col.gameObject.tag == "noGravZone") {
+			NoGravZoneEntered (this);
 		}
 	}
 
-	void OnTriggerStay (Collider col)
+	void OnTriggerExit (Collider col)
 	{
 		if (col.gameObject.tag == "noGravZone") {
-			
+			NoGravZoneExited (this);
 		}
 	}
 }
