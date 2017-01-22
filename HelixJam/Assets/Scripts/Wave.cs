@@ -60,6 +60,7 @@ public class Wave : MonoBehaviour
 			Wall hitWall = (Wall)col.gameObject.GetComponent<Wall> ();
 			Renderer wallRend = hitWall.GetComponent<Renderer> ();
 			wallRend.material.SetColor ("_Color", Color.gray);
+			WaveMaster.Instance.HitWall ();
 		} else if (col.gameObject.tag == "noGravZone") {
 			NoGravZoneEntered (this);
 		} else if (col.gameObject.tag == "directionZone") {

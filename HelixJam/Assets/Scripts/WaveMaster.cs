@@ -5,11 +5,27 @@ using UnityEngine.UI;
 
 public class WaveMaster : MonoBehaviour 
 {
+
+	private static WaveMaster _instance;
+
+	public static WaveMaster Instance { get { return _instance; } }
+
+	private void Awake()
+	{
+		if (_instance != null && _instance != this)
+		{
+			Destroy(this.gameObject);
+		} else {
+			_instance = this;
+		}
+	}
+
 	public List<Wave> waves = null;
 	public BasicCamera basicCamera = null;
 	public CenterLine centerLine = null;
 
 	public float speed = 0.0f;
+	public float normalSpeed = 0.0f;
 	[Range(0.0f, 1.0f)]
 	public float gravity = 0.0f;
 	[Range(0.0f, 1.0f)]
@@ -212,6 +228,12 @@ public class WaveMaster : MonoBehaviour
 
 	private void VerticalSpeed()
 	{
+		if (speed < normalSpeed) {
+			speed += Time.deltaTime * 3.5f;
+		} else if (speed > normalSpeed) {
+			speed = normalSpeed;
+		}
+
 		for (int i = 0; i < waves.Count; ++i)
 		{
 			Vector3 delta = _deltas [i];
@@ -239,6 +261,11 @@ public class WaveMaster : MonoBehaviour
 		_jumps = jumpsAllowed;
 		jumpText.text = _jumps.ToString ();
 		_boosting = false;
+	}
+
+	public void HitWall() 
+	{
+		speed = speed * 0.35f;
 	}
 
 	private void OnDestroy()
