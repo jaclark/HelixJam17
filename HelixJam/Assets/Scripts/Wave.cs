@@ -51,14 +51,20 @@ public class Wave : MonoBehaviour
 		if (col.gameObject.tag == "cube") {
 			Cube hitCube = (Cube)col.gameObject.GetComponent<Cube> ();
 			if (hitCube.cubeType [0] == transform.name [0]) {
+				if (hitCube.cubeType [0] == 'A') 
+					ScoreManager.Instance.IncreaseBlueScore();
+				else 
+					ScoreManager.Instance.IncreaseOrangeScore();
+				
 				AudioService.Instance.PlayBreak ();
 				hitCube.DestroyedParticles.Play ();
-				hitCube.renderer.enabled = false;
+				//Destroy (hitCube.gameObject);
+				hitCube.gameObject.GetComponent<MeshRenderer>().enabled = false;
 			}
 		} else if (col.gameObject.tag == "wall") {
 			Wall hitWall = (Wall)col.gameObject.GetComponent<Wall> ();
-			hitWall.image.color = new Color (.1f, .1f, .1f, 1f);
-			hitWall.outline.effectColor = Color.black;
+			Renderer wallRend = hitWall.GetComponent<Renderer> ();
+			wallRend.material.SetColor ("_Color", Color.gray);
 			WaveMaster.Instance.HitWall ();
 			AudioService.Instance.PlayHitWall ();
 		} else if (col.gameObject.tag == "noGravZone") {
