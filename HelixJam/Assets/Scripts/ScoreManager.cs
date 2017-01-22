@@ -70,6 +70,7 @@ public class ScoreManager : MonoBehaviour {
 
 	public void AddLife() {
 		Lives++;
+		WaveMaster.Instance.LifeUpEffects ();
 	}
 
 	public void HandleExtraLife() {

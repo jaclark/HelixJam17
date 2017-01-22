@@ -162,6 +162,14 @@ public class WaveMaster : MonoBehaviour
 		}
 	}
 
+	public void LifeUpEffects()
+	{
+		for (int i = 0; i < waves.Count; ++i)
+		{
+			waves [i].ChaChing ();
+		}	
+	}
+
 	private void Boost()
 	{
 		AudioService.Instance.PlayDash ();
