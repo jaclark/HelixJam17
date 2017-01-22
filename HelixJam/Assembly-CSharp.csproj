@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\WallManager.cs" />
      <Compile Include="Assets\Scripts\Wave.cs" />
      <Compile Include="Assets\Scripts\WaveMaster.cs" />
+     <None Include="Assets\Shaders\WireFrame.shader" />
      <None Include="Assets\Shaders\Center.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity5.5.0f3/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

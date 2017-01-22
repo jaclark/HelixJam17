@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cube : MonoBehaviour {
-
+public class Cube : MonoBehaviour
+{
+	public MeshRenderer renderer = null;
 	public Material[] cubeMaterials;
 	public string cubeType;
 
 	// Use this for initialization
 	void Start () {
-		float randScale = Random.Range (0.5f, 3.0f);
+		float randScale = Random.Range (0.5f, 2.0f);
 		transform.localScale += new Vector3 (randScale, randScale, 0.0f);
 		int cubeMatIndex = Random.Range (0, 2);
-		MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer> ();
-		meshRenderer.material = cubeMaterials [cubeMatIndex];
-		cubeType = meshRenderer.material.ToString ();
+		renderer.material = cubeMaterials [cubeMatIndex];
+		cubeType = renderer.material.ToString ();
+	}
+
+	private void Update()
+	{
+		transform.rotation *= Quaternion.AngleAxis (180 * Time.deltaTime, Vector3.forward);
 	}
 }

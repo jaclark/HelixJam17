@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class NoGravZone : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+public class NoGravZone : MonoBehaviour 
+{
+	public RectTransform rectTransform = null;
 }
