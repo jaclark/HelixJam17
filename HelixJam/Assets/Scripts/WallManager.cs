@@ -22,6 +22,8 @@ public class WallManager : MonoBehaviour {
 			Wall freshWall = Instantiate (wall, spawnPoint, Quaternion.identity, null);
 			float wallSize = Random.Range (1.0f, 4.0f);
 			freshWall.transform.localScale = new Vector3 (wallSize, 1f, 1f);
+			freshWall.rectTransform.localScale = new Vector3 (1 / wallSize, 1f, 1f);
+			freshWall.rectTransform.sizeDelta = new Vector2 (freshWall.rectTransform.sizeDelta.x * wallSize, freshWall.rectTransform.sizeDelta.y);
 			float wallXPos = Random.Range (-freshWall.transform.localScale.x, freshWall.transform.localScale.x);
 			freshWall.transform.Translate(new Vector3(wallXPos,0f,0f));
 			_numWalls--;

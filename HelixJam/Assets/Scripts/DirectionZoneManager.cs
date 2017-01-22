@@ -24,15 +24,17 @@ public class DirectionZoneManager : MonoBehaviour {
 			float xDir = Random.Range (-1f, 1f);
 			float yDir = Random.Range (0, 1.0f);
 
-			Vector3 leftPos = new Vector3 (-xSpread, spawnYPos, 0f);
-			DirectionZone leftZone = Instantiate (dirZone, leftPos, Quaternion.identity, null);
-			leftZone.transform.localScale = new Vector3 (xScale, yScale, 1f);
-			leftZone.direction = new Vector2 (xDir, yDir);
+			DirectionZone leftZone = Instantiate (dirZone, Vector3.up * -1000, Quaternion.identity, null);
+			leftZone.SetReverse (false);
+			leftZone.SetPosition (new Vector3 (-xSpread, spawnYPos, 0f));
+			leftZone.SetDirection (new Vector3 (xDir, yDir, 0));
+			leftZone.SetScale (new Vector3 (xScale, yScale, 1f));
 
-			Vector3 rightPos = new Vector3 (xSpread, spawnYPos, 0f);
-			DirectionZone rightZone = Instantiate (dirZone, rightPos, Quaternion.identity, null);
-			rightZone.transform.localScale = new Vector3 (xScale, yScale, 1f);
-			rightZone.direction = new Vector2(xDir, yDir);
+			DirectionZone rightZone = Instantiate (dirZone, Vector3.up * -1000, Quaternion.identity, null);
+			rightZone.SetReverse (true);
+			rightZone.SetPosition (new Vector3 (xSpread, spawnYPos, 0f));
+			rightZone.SetDirection (new Vector2 (xDir, yDir));
+			rightZone.SetScale (new Vector3 (xScale, yScale, 1f));
 
 			spawnYPos += Random.Range (35.0f, 55.0f);
 			_numDirZones--;

@@ -52,13 +52,12 @@ public class Wave : MonoBehaviour
 			Cube hitCube = (Cube)col.gameObject.GetComponent<Cube> ();
 			if (hitCube.cubeType [0] == transform.name [0]) {
 				hitCube.DestroyedParticles.Play ();
-				//Destroy (hitCube.gameObject);
-				hitCube.gameObject.GetComponent<MeshRenderer>().enabled = false;
+				hitCube.renderer.enabled = false;
 			}
 		} else if (col.gameObject.tag == "wall") {
 			Wall hitWall = (Wall)col.gameObject.GetComponent<Wall> ();
-			Renderer wallRend = hitWall.GetComponent<Renderer> ();
-			wallRend.material.SetColor ("_Color", Color.gray);
+			hitWall.image.color = new Color (.1f, .1f, .1f, 1f);
+			hitWall.outline.effectColor = Color.black;
 		} else if (col.gameObject.tag == "noGravZone") {
 			NoGravZoneEntered (this);
 		} else if (col.gameObject.tag == "directionZone") {
