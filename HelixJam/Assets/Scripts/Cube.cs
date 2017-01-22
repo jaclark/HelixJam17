@@ -11,7 +11,7 @@ public class Cube : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		float randScale = Random.Range (0.5f, 3.0f);
+		float randScale = Random.Range (1f, 3f);
 		transform.localScale += new Vector3 (randScale, randScale, 0.0f);
 		int cubeMatIndex = Random.Range (0, 2);
 		MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer> ();

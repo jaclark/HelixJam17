@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\DirectionZoneManager.cs" />
      <Compile Include="Assets\Scripts\NoGravZone.cs" />
      <Compile Include="Assets\Scripts\NoGravZoneManager.cs" />
+     <Compile Include="Assets\Scripts\ObstacleMaster.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
      <Compile Include="Assets\Scripts\WallManager.cs" />
      <Compile Include="Assets\Scripts\Wave.cs" />
