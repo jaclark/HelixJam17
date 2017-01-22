@@ -75,29 +75,33 @@ public class WaveMaster : MonoBehaviour
 
 	private void Update()
 	{
-		if ((Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown(KeyCode.D)) && _jumps > 0)
+		if (ScoreManager.Instance.HasLives ())
 		{
-			Jump ();
+			if ((Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown(KeyCode.D)
+				|| Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && _jumps > 0)
+			{
+				Jump ();
+			}
+
+			if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && _jumps > 0)
+			{
+				Boost ();
+			}
+			else
+			{
+				SlowBoost ();
+			}
+
+			Gravity ();
+
+			VerticalSpeed ();
+
+			ZoneForce ();
+
+			Apply ();
+
+			GradualSpeedGain ();
 		}
-			
-		if (Input.GetKeyDown (KeyCode.W) && _jumps > 0)
-		{
-			Boost ();
-		}
-		else
-		{
-			SlowBoost ();
-		}
-
-		Gravity ();
-
-		VerticalSpeed ();
-
-		ZoneForce ();
-
-		Apply ();
-
-		GradualSpeedGain ();
 	}
 
 	private void Jump()

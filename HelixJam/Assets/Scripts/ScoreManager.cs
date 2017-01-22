@@ -73,6 +73,11 @@ public class ScoreManager : MonoBehaviour {
 		WaveMaster.Instance.LifeUpEffects ();
 	}
 
+	public bool HasLives()
+	{
+		return Lives > 0;
+	}
+
 	public void HandleExtraLife() {
 		if (_extraLifeCountOrange == 0 && _extraLifeCountBlue == 0) {
 			_extraLifeCountBlue = 1;
@@ -88,7 +93,6 @@ public class ScoreManager : MonoBehaviour {
 	}
 
 	private IEnumerator BeginRestart() {
-		Lives = 10;
 		WaveMaster.Instance.speed = 0.0f;
 		FailureScreen.SetActive (true);
 		FailureText.text = "Restarting in 3";
