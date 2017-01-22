@@ -39,7 +39,7 @@ public class ScoreManager : MonoBehaviour {
 	[HideInInspector] public int Lives = 3;
 
 	void Update() {
-		DistanceScoreText.text = "Score: " + TotalDistance.ToString();
+		DistanceScoreText.text = TotalDistance.ToString();
 	}
 
 	public void IncreaseBlueScore() {

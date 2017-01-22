@@ -70,7 +70,7 @@ public class Wave : MonoBehaviour
 					ScoreManager.Instance.IncreaseOrangeScore();
 				
 				AudioService.Instance.PlayBreak ();
-				hitCube.DestroyedParticles.Play ();
+				hitCube.MakeDemParticles ();
 				hitCube.renderer.enabled = false;
 			}
 		} else if (col.gameObject.tag == "wall") {
