@@ -54,4 +54,11 @@ public class Wave : MonoBehaviour
 			wallRend.material.SetColor ("_Color", Color.gray);
 		}
 	}
+
+	void OnTriggerStay (Collider col)
+	{
+		if (col.gameObject.tag == "noGravZone") {
+			
+		}
+	}
 }
