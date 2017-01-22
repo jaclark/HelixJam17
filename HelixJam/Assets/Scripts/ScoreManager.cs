@@ -81,6 +81,7 @@ public class ScoreManager : MonoBehaviour {
 			BWave.GrowTrail ();
 			BlueMeter.sprite = CircleOutline;
 			OrangeMeter.sprite = CircleOutline;
+			AudioService.Instance.PlayExtraLife ();
 		}
 	}
 
