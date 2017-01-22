@@ -36,6 +36,8 @@ public class WaveMaster : MonoBehaviour
 		for (int i = 0; i < waves.Count; ++i)
 		{
 			waves [i].LineCrossed += OnLineCrossed;
+			waves [i].NoGravZoneEntered += EnableNoGravZone;
+			waves [i].NoGravZoneExited += DisableNoGravZone;
 			_deltas.Add (Vector3.zero);
 		}
 
@@ -130,6 +132,22 @@ public class WaveMaster : MonoBehaviour
 		}
 	}
 
+	private void EnableNoGravZone (Wave freshWave)
+	{
+		_inNoGrav = true;
+		for (int i = 0; i < waves.Count; ++i)
+		{
+			Vector3 delta = _deltas [i];
+			delta.x = 0.0f;
+			_deltas [i] = delta;
+		}
+	}
+
+	private void DisableNoGravZone (Wave freshWave)
+	{
+		_inNoGrav = false;
+	}
+
 	private void Gravity()
 	{
 		float realGravity = 0.0f;
@@ -189,6 +207,8 @@ public class WaveMaster : MonoBehaviour
 		for (int i = 0; i < waves.Count; ++i)
 		{
 			waves [i].LineCrossed -= OnLineCrossed;
+			waves [i].NoGravZoneEntered -= EnableNoGravZone;
+			waves [i].NoGravZoneExited -= DisableNoGravZone;
 		}
 	}
 }
