@@ -235,6 +235,7 @@ public class WaveMaster : MonoBehaviour
 
 	private void OnLineCrossed(Wave wave)
 	{
+		AudioService.Instance.PlayMiddle ();
 		_jumps = jumpsAllowed;
 		jumpText.text = _jumps.ToString ();
 		_boosting = false;
