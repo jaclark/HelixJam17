@@ -78,6 +78,8 @@ public class WaveMaster : MonoBehaviour
 
 	private void Jump()
 	{
+		AudioService.Instance.PlayJump ();
+
 		_jumps--;
 		_jumps = Mathf.Clamp (_jumps, 0, jumpsAllowed);
 		jumpText.text = _jumps.ToString ();
@@ -138,6 +140,8 @@ public class WaveMaster : MonoBehaviour
 
 	private void Boost()
 	{
+		AudioService.Instance.PlayDash ();
+
 		_jumps--;
 		_jumps = Mathf.Clamp (_jumps, 0, jumpsAllowed);
 		jumpText.text = _jumps.ToString ();
