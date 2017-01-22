@@ -7,7 +7,7 @@ public class Cube : MonoBehaviour
 	public MeshRenderer renderer = null;
 	public Material[] cubeMaterials;
 	public Material ACube;
-	public ParticleSystem DestroyedParticles;
+	public ParticleSystem DestroyedParticlesPrefab;
 	public string cubeType;
 
 	// Use this for initialization
@@ -22,5 +22,10 @@ public class Cube : MonoBehaviour
 	private void Update()
 	{
 		transform.rotation *= Quaternion.AngleAxis (180 * Time.deltaTime, Vector3.forward);
+	}
+
+	public void MakeDemParticles()
+	{
+		Instantiate (DestroyedParticlesPrefab, transform.position, Quaternion.identity);
 	}
 }
