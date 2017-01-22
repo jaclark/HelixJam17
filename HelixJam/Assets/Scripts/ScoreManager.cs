@@ -21,16 +21,20 @@ public class ScoreManager : MonoBehaviour {
 
 	private int _blueScore = 0;
 	private int _orangeScore = 0;
-	private int _extraLifeCountBlue = 3;
-	private int _extraLifeCountOrange = 3;
+	private int _extraLifeCountBlue = 1;
+	private int _extraLifeCountOrange = 1;
+	public float TotalDistance = 0f; 
+	public GameObject FailureScreen;
 	public Text OrangeScoreText;
 	public Text BlueScoreText;
 	public Text DistanceScoreText;
-	public GameObject FailureScreen;
 	public Text FailureText;
+	public Image OrangeMeter;
+	public Image BlueMeter;
+	public Sprite CircleOutline;
+	public Sprite CircleFilled;
 	public Wave AWave;
 	public Wave BWave;
-	public float TotalDistance = 0f; 
 
 	[HideInInspector] public int Lives = 3;
 
@@ -40,14 +44,20 @@ public class ScoreManager : MonoBehaviour {
 
 	public void IncreaseBlueScore() {
 		_blueScore++;
-		if(_extraLifeCountBlue > 0) _extraLifeCountBlue--;
+		if (_extraLifeCountBlue > 0) {
+			_extraLifeCountBlue--;
+			BlueMeter.sprite = CircleFilled;
+		}
 		HandleExtraLife ();
 		BlueScoreText.text = _blueScore.ToString();
 	}
 
 	public void IncreaseOrangeScore() {
 		_orangeScore++;
-		if(_extraLifeCountOrange > 0) _extraLifeCountOrange--;
+		if (_extraLifeCountOrange > 0) {
+			_extraLifeCountOrange--;
+			OrangeMeter.sprite = CircleFilled;
+		}
 		HandleExtraLife ();
 		OrangeScoreText.text = _orangeScore.ToString();
 	}
@@ -64,11 +74,13 @@ public class ScoreManager : MonoBehaviour {
 
 	public void HandleExtraLife() {
 		if (_extraLifeCountOrange == 0 && _extraLifeCountBlue == 0) {
-			_extraLifeCountBlue = 3;
-			_extraLifeCountOrange = 3;
+			_extraLifeCountBlue = 1;
+			_extraLifeCountOrange = 1;
 			AddLife ();
 			AWave.GrowTrail ();
 			BWave.GrowTrail ();
+			BlueMeter.sprite = CircleOutline;
+			OrangeMeter.sprite = CircleOutline;
 		}
 	}
 
