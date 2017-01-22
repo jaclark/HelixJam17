@@ -229,7 +229,7 @@ public class WaveMaster : MonoBehaviour
 	private void VerticalSpeed()
 	{
 		if (speed < normalSpeed) {
-			speed += Time.deltaTime * 3.5f;
+			speed += Time.deltaTime * 3f;
 		} else if (speed > normalSpeed) {
 			speed = normalSpeed;
 		}
@@ -265,7 +265,7 @@ public class WaveMaster : MonoBehaviour
 
 	public void HitWall() 
 	{
-		speed = speed * 0.35f;
+		speed = speed * 0.50f;
 	}
 
 	private void OnDestroy()
