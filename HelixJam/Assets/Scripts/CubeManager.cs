@@ -8,7 +8,7 @@ public class CubeManager : MonoBehaviour {
 	public Material aCubeMat = null;
 	public Material bCubeMat = null;
 
-	public int numCubes = 60;
+	public int numCubes = 100;
 
 	private float cubeStartY = 10.0f;
 
@@ -25,7 +25,7 @@ public class CubeManager : MonoBehaviour {
 			float xSpawn = Random.Range (2.0f, 12.0f);
 			if (xSpawn > 9.0f)
 				xSpawn = 5.0f - xSpawn;
-			Vector3 spawnPoint = new Vector3 (xSpawn, spawnPosY + Random.Range(12.0f, 17.0f), 0.0f);
+			Vector3 spawnPoint = new Vector3 (xSpawn, spawnPosY + Random.Range(15.0f, 20.0f), 0.0f);
 			Instantiate(cube, spawnPoint, Quaternion.identity, null);
 			spawnPosY += Random.Range (12.0f, 17.0f);
 			_numCubes--;

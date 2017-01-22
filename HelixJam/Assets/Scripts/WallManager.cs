@@ -5,7 +5,7 @@ using UnityEngine;
 public class WallManager : MonoBehaviour {
 
 	public Wall wall = null;
-	public int numWalls = 50;
+	public int numWalls = 100;
 
 	private float wallStartY = 12.0f;
 
@@ -16,11 +16,11 @@ public class WallManager : MonoBehaviour {
 
 	public void RandomWallLayout (int _numWalls)
 	{
-		float spawnY = wallStartY;
+		//float spawnY = wallStartY;
 		float ySpawn = Random.Range (12.0f, 15.0f);
 		while (_numWalls > 0) 
 		{
-			ySpawn += Random.Range (10.0f, 20.0f);
+			ySpawn += Random.Range (15.0f, 25.0f);
 			Vector3 spawnPoint = new Vector3 (0f, ySpawn, 0f);
 			Wall freshWall = Instantiate (wall, spawnPoint, Quaternion.identity, null);
 			float wallSize = Random.Range (1.0f, 4.0f);

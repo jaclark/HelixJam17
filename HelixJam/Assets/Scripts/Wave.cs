@@ -51,9 +51,14 @@ public class Wave : MonoBehaviour
 		} else if (col.gameObject.tag == "wall") {
 			Wall hitWall = (Wall)col.gameObject.GetComponent<Wall> ();
 			Renderer wallRend = hitWall.GetComponent<Renderer> ();
-			//wallRend.material.shader = Shader.Find ("Specular");
 			wallRend.material.SetColor ("_Color", Color.gray);
-			Debug.Log (wallRend.material.color);
+		}
+	}
+
+	void OnTriggerStay (Collider col)
+	{
+		if (col.gameObject.tag == "noGravZone") {
+			
 		}
 	}
 }
