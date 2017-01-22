@@ -58,13 +58,12 @@ public class Wave : MonoBehaviour
 				
 				AudioService.Instance.PlayBreak ();
 				hitCube.DestroyedParticles.Play ();
-				//Destroy (hitCube.gameObject);
-				hitCube.gameObject.GetComponent<MeshRenderer>().enabled = false;
+				hitCube.renderer.enabled = false;
 			}
 		} else if (col.gameObject.tag == "wall") {
 			Wall hitWall = (Wall)col.gameObject.GetComponent<Wall> ();
-			Renderer wallRend = hitWall.GetComponent<Renderer> ();
-			wallRend.material.SetColor ("_Color", Color.gray);
+			hitWall.image.color = new Color (.2f, .2f, .2f, 1f);
+			hitWall.outline.effectColor = Color.black;
 			WaveMaster.Instance.HitWall ();
 			AudioService.Instance.PlayHitWall ();
 		} else if (col.gameObject.tag == "noGravZone") {
