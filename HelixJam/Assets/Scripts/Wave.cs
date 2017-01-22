@@ -61,6 +61,7 @@ public class Wave : MonoBehaviour
 			Renderer wallRend = hitWall.GetComponent<Renderer> ();
 			wallRend.material.SetColor ("_Color", Color.gray);
 			WaveMaster.Instance.HitWall ();
+			AudioService.Instance.PlayHitWall ();
 		} else if (col.gameObject.tag == "noGravZone") {
 			NoGravZoneEntered (this);
 		} else if (col.gameObject.tag == "directionZone") {
