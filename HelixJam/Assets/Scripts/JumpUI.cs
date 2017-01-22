@@ -47,7 +47,7 @@ public class JumpUI : MonoBehaviour
 				for (int j = 0; j < lineSegments; ++j)
 				{
 					float sinY = Mathf.Sin (startXPos + j * totalLineWidth / lineSegments + Time.time * lineFrequency) * lineAmplitude;
-					line.SetPosition (j, new Vector3 (startXPos + j * totalLineWidth / lineSegments, startYPos + sinY, 0));
+					line.SetPosition (j, new Vector3 (startXPos + j * totalLineWidth / lineSegments, startYPos + sinY, -5));
 				}
 			}
 		}

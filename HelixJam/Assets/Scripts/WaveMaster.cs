@@ -23,6 +23,7 @@ public class WaveMaster : MonoBehaviour
 	public List<Wave> waves = null;
 	public BasicCamera basicCamera = null;
 	public CenterLine centerLine = null;
+	public Transform crossParticles = null;
 
 	public float speed = 0.0f;
 	public float normalSpeed = 0.0f;
@@ -275,6 +276,7 @@ public class WaveMaster : MonoBehaviour
 		_jumps = jumpsAllowed;
 		jumpText.text = _jumps.ToString ();
 		_boosting = false;
+		Instantiate (crossParticles, wave.transform.position, Quaternion.identity);
 	}
 
 	public void HitWall() 
