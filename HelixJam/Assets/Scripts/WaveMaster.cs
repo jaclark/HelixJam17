@@ -21,11 +21,14 @@ public class WaveMaster : MonoBehaviour
 
 	public float jumpStrength = 0.0f;
 	public int jumpsAllowed = 0;
-	private int _jumps = 0;
+
+	public float zoneForce = 0.0f;
+	private Vector2 _zoneDirection = Vector2.zero;
 
 	public Text debugText = null;
 	public Text jumpText = null;
 
+	private int _jumps = 0;
 	private List<Vector3> _deltas = new List<Vector3> ();
 	private bool _boosting = false;
 	private float _realBoost = 0.0f;
@@ -63,6 +66,8 @@ public class WaveMaster : MonoBehaviour
 
 		VerticalSpeed ();
 
+		ZoneForce ();
+
 		Apply ();
 	}
 
@@ -95,6 +100,34 @@ public class WaveMaster : MonoBehaviour
 				}
 				delta.x = belowZeroX - jumpStrength;
 				_deltas [i] = delta;
+			}
+		}
+	}
+
+	private void EnableZone(Vector2 direction)
+	{
+		_zoneDirection = direction;
+
+	}
+
+	private void DisableZone()
+	{
+		_zoneDirection = Vector2.zero;
+	}
+
+	private void ZoneForce()
+	{
+		for (int i = 0; i < waves.Count; ++i)
+		{
+			if (waves [i].transform.position.x > 0)
+			{
+				Vector3 realZoneDirection = new Vector3 (_zoneDirection.x, _zoneDirection.y, 0);
+				_deltas [i] += realZoneDirection * zoneForce * Time.deltaTime;
+			}
+			else
+			{
+				Vector3 realZoneDirection = new Vector3 (-_zoneDirection.x, _zoneDirection.y, 0);
+				_deltas [i] += realZoneDirection * zoneForce * Time.deltaTime;
 			}
 		}
 	}
