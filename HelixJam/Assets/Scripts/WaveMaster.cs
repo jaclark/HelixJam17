@@ -27,6 +27,7 @@ public class WaveMaster : MonoBehaviour
 
 	private List<Vector3> _deltas = new List<Vector3> ();
 	private bool _boosting = false;
+	private bool _inNoGrav = false;
 	private float _realBoost = 0.0f;
 
 	private void Start()
@@ -131,7 +132,11 @@ public class WaveMaster : MonoBehaviour
 	private void Gravity()
 	{
 		float realGravity = 0.0f;
-		if (_boosting)
+		if (_inNoGrav) 
+		{
+			realGravity = 0.0f;
+		}
+		else if (_boosting)
 		{
 			realGravity = boostGravity;
 		}
