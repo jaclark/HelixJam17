@@ -90,6 +90,8 @@ public class WaveMaster : MonoBehaviour
 		ZoneForce ();
 
 		Apply ();
+
+		GradualSpeedGain ();
 	}
 
 	private void Jump()
@@ -238,8 +240,15 @@ public class WaveMaster : MonoBehaviour
 		{
 			Vector3 delta = _deltas [i];
 			delta.y = speed + _realBoost;
+			ScoreManager.Instance.TotalDistance += Mathf.Floor(delta.y / 8);
 			_deltas [i] = delta;
 		}
+	}
+
+	private void GradualSpeedGain() 
+	{
+		speed += .02f / 30;
+		normalSpeed += .02f / 30;
 	}
 
 	private void Apply()
