@@ -51,6 +51,7 @@ public class Wave : MonoBehaviour
 		if (col.gameObject.tag == "cube") {
 			Cube hitCube = (Cube)col.gameObject.GetComponent<Cube> ();
 			if (hitCube.cubeType [0] == transform.name [0]) {
+				AudioService.Instance.PlayBreak ();
 				hitCube.DestroyedParticles.Play ();
 				//Destroy (hitCube.gameObject);
 				hitCube.gameObject.GetComponent<MeshRenderer>().enabled = false;
@@ -64,6 +65,7 @@ public class Wave : MonoBehaviour
 		} else if (col.gameObject.tag == "directionZone") {
 			DirectionZone dirZone = (DirectionZone)col.gameObject.GetComponent<DirectionZone> ();
 			EnableZone (dirZone.direction);
+			AudioService.Instance.PlayBumper ();
 		}
 	}
 
