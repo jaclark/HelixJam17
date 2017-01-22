@@ -45,6 +45,11 @@ public class WaveMaster : MonoBehaviour
 	public Text jumpText = null;
 
 	private int _jumps = 0;
+	public int jumps
+	{
+		get { return _jumps; }
+	}
+
 	private List<Vector3> _deltas = new List<Vector3> ();
 	private bool _boosting = false;
 	private bool _inNoGrav = false;

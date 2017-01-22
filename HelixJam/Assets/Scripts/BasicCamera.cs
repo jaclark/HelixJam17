@@ -7,6 +7,8 @@ public class BasicCamera : MonoBehaviour
 	private List<Wave> _waves = null;
 	private int _waveCount = 0;
 
+	public JumpUI jumpUI;
+
 	public void Init(List<Wave> waves)
 	{
 		_waves = waves;
@@ -24,5 +26,7 @@ public class BasicCamera : MonoBehaviour
 		float yAvg = (totalY) / _waveCount;
 
 		transform.position = new Vector3 (0, yAvg+5f, -10);
+
+		jumpUI.UpdateUI ();
 	}
 }
