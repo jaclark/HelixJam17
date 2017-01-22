@@ -185,9 +185,9 @@ public class ObstacleMaster : MonoBehaviour {
 		//gridgridPos.y + gridHeight / 3 * i
 
 		for (int i = 0; i < gridSpots.GetLength (0); i++) {
-			Debug.Log ("gridPos first " + gridPos);
+			//Debug.Log ("gridPos first " + gridPos);
 			gridPos.Set (gridPos.x, gridPos.y + gridHeight / 3, gridPos.z);
-			Debug.Log ("gridPos second " + gridPos);
+			//Debug.Log ("gridPos second " + gridPos);
 			if (gridSpots [i] > 0.75f && gridSpots [i] < 1.5f)
 				BuildNoGravZones (gridPos);
 			else if (gridSpots [i] >= 1.5f && gridSpots [i] <= 2f)
