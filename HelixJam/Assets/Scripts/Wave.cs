@@ -13,10 +13,13 @@ public class Wave : MonoBehaviour
 	public Action<Vector2> DisableZone = delegate{};
 
 	private bool _positive = true;
+	private TrailRenderer _trailRenderer;
 
 	private void Start()
 	{
 		GetComponent<Renderer> ().enabled = false;
+
+		_trailRenderer = GetComponent<TrailRenderer> ();
 
 		_positive = transform.position.x >= 0;
 	}
@@ -46,6 +49,16 @@ public class Wave : MonoBehaviour
 		LineCrossed (this);
 	}
 
+	public void GrowTrail() {
+		if(_trailRenderer.startWidth < 0.4f) 
+			_trailRenderer.startWidth += 0.1f;
+	}
+
+	public void ShrinkTrail() {
+		if(_trailRenderer.startWidth > 0.0f)
+			_trailRenderer.startWidth -= 0.1f;
+	}
+
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "cube") {
@@ -58,15 +71,18 @@ public class Wave : MonoBehaviour
 				
 				AudioService.Instance.PlayBreak ();
 				hitCube.DestroyedParticles.Play ();
-				//Destroy (hitCube.gameObject);
-				hitCube.gameObject.GetComponent<MeshRenderer>().enabled = false;
+				hitCube.renderer.enabled = false;
 			}
 		} else if (col.gameObject.tag == "wall") {
 			Wall hitWall = (Wall)col.gameObject.GetComponent<Wall> ();
-			Renderer wallRend = hitWall.GetComponent<Renderer> ();
-			wallRend.material.SetColor ("_Color", Color.gray);
-			WaveMaster.Instance.HitWall ();
-			AudioService.Instance.PlayHitWall ();
+
+			if (hitWall.outline.effectColor != Color.black) {
+				hitWall.image.color = new Color (.2f, .2f, .2f, 1f);
+				hitWall.outline.effectColor = Color.black;
+				WaveMaster.Instance.HitWall ();
+				ScoreManager.Instance.SubtractLife ();
+				AudioService.Instance.PlayHitWall (); 
+			}
 		} else if (col.gameObject.tag == "noGravZone") {
 			NoGravZoneEntered (this);
 			AudioService.Instance.PlayNoGrav ();

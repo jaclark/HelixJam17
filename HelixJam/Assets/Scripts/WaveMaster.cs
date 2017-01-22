@@ -266,6 +266,10 @@ public class WaveMaster : MonoBehaviour
 	public void HitWall() 
 	{
 		speed = speed * 0.50f;
+		for (int i = 0; i < waves.Count; i++) 
+		{
+			waves[i].ShrinkTrail();
+		}
 	}
 
 	private void OnDestroy()
