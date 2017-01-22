@@ -41,6 +41,8 @@ public class WaveMaster : MonoBehaviour
 			waves [i].LineCrossed += OnLineCrossed;
 			waves [i].NoGravZoneEntered += EnableNoGravZone;
 			waves [i].NoGravZoneExited += DisableNoGravZone;
+			waves [i].EnableZone += EnableZone;
+			waves [i].DisableZone += DisableZone;
 			_deltas.Add (Vector3.zero);
 		}
 
@@ -110,10 +112,9 @@ public class WaveMaster : MonoBehaviour
 	private void EnableZone(Vector2 direction)
 	{
 		_zoneDirection = direction;
-
 	}
 
-	private void DisableZone()
+	private void DisableZone(Vector2 direction)
 	{
 		_zoneDirection = Vector2.zero;
 	}
@@ -242,6 +243,8 @@ public class WaveMaster : MonoBehaviour
 			waves [i].LineCrossed -= OnLineCrossed;
 			waves [i].NoGravZoneEntered -= EnableNoGravZone;
 			waves [i].NoGravZoneExited -= DisableNoGravZone;
+			waves [i].EnableZone -= EnableZone;
+			waves [i].DisableZone -= DisableZone;
 		}
 	}
 }

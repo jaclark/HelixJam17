@@ -7,8 +7,6 @@ public class WallManager : MonoBehaviour {
 	public Wall wall = null;
 	public int numWalls = 100;
 
-	private float wallStartY = 12.0f;
-
 	// Use this for initialization
 	void Start () {
 		RandomWallLayout (numWalls);
@@ -16,7 +14,6 @@ public class WallManager : MonoBehaviour {
 
 	public void RandomWallLayout (int _numWalls)
 	{
-		//float spawnY = wallStartY;
 		float ySpawn = Random.Range (12.0f, 15.0f);
 		while (_numWalls > 0) 
 		{
