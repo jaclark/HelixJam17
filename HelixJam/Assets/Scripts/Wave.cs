@@ -64,6 +64,7 @@ public class Wave : MonoBehaviour
 			AudioService.Instance.PlayHitWall ();
 		} else if (col.gameObject.tag == "noGravZone") {
 			NoGravZoneEntered (this);
+			AudioService.Instance.PlayNoGrav ();
 		} else if (col.gameObject.tag == "directionZone") {
 			DirectionZone dirZone = (DirectionZone)col.gameObject.GetComponent<DirectionZone> ();
 			EnableZone (dirZone.direction);
