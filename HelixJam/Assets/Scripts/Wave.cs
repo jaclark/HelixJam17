@@ -83,6 +83,7 @@ public class Wave : MonoBehaviour
 				ScoreManager.Instance.SubtractLife ();
 				AudioService.Instance.PlayHitWall (); 
 			}
+
 		} else if (col.gameObject.tag == "noGravZone") {
 			NoGravZoneEntered (this);
 			AudioService.Instance.PlayNoGrav ();
