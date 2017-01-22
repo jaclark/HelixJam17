@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Wave.position.x != 0) Melody.volume = 1 - Mathf.Abs(Wave.position.x) / 15;
-		if (Wave.position.x != 0) Beat.volume = 1 - Mathf.Abs (Wave.position.x) / 15;
+		//if (Wave.position.x != 0) Beat.volume = Mathf.Abs (Wave.position.x) / 10;
 
 	}
 }
