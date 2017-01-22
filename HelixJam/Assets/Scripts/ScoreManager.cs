@@ -36,7 +36,7 @@ public class ScoreManager : MonoBehaviour {
 	public Wave AWave;
 	public Wave BWave;
 
-	[HideInInspector] public int Lives = 5;
+	public int Lives = 5;
 
 	void Update() {
 		DistanceScoreText.text = TotalDistance.ToString();
