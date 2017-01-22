@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour {
 	private static ScoreManager _instance;
@@ -24,6 +25,8 @@ public class ScoreManager : MonoBehaviour {
 	private int _extraLifeCountOrange = 3;
 	public Text OrangeScoreText;
 	public Text BlueScoreText;
+	public GameObject FailureScreen;
+	public Text FailureText;
 	public Wave AWave;
 	public Wave BWave;
 
@@ -45,6 +48,8 @@ public class ScoreManager : MonoBehaviour {
 
 	public void SubtractLife() {
 		Lives--;
+		if (Lives <= 0)
+			StartCoroutine (BeginRestart());
 	}
 
 	public void AddLife() {
@@ -59,5 +64,18 @@ public class ScoreManager : MonoBehaviour {
 			AWave.GrowTrail ();
 			BWave.GrowTrail ();
 		}
+	}
+
+	private IEnumerator BeginRestart() {
+		Lives = 10;
+		WaveMaster.Instance.speed = 0.0f;
+		FailureScreen.SetActive (true);
+		FailureText.text = "Restarting in 3";
+		yield return new WaitForSeconds (1f);
+		FailureText.text = "Restarting in 2";
+		yield return new WaitForSeconds (1f);
+		FailureText.text = "Restarting in 1";
+		yield return new WaitForSeconds (1f);
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 	}
 }

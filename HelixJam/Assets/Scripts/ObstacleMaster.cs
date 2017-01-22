@@ -60,13 +60,16 @@ public class ObstacleMaster : MonoBehaviour {
 		nextGrid = nextGrid = new List<GameObject> ();
 		//zeroOutOldGrid ();
 		gridStartYPos = playerPos.position.y + gridHeight;
+		Vector3 gridStart = new Vector3 ((float)-gridWidth / 2, gridStartYPos, 0f);
 		// BuildLineWalls first
-		BuildLineWalls (new Vector3(-(float)gridWidth/2, gridStartYPos, 0f));
+		BuildLineWalls (gridStart);
 		// then build outer walls
-		BuildOuterWalls(new Vector3((float)-gridWidth/2, gridStartYPos, 0f));
+		BuildOuterWalls(gridStart);
 		// then put cubes
-		BuildCubes(new Vector3((float)-gridWidth/2, gridStartYPos, 0f));
+		BuildCubes(gridStart);
 		// then gravity zones and direciton zones
+		BuildAllZones(gridStart);
+		//BuildNoGravZones(new Vector3((float)-gridWidth/2, gridStartYPos, 0f));
 		//putWalls (new Vector3(-(float)gridWidth/2, gridStartYPos, 0f));
 		//printObstacleGrid ();
 	}
@@ -135,7 +138,7 @@ public class ObstacleMaster : MonoBehaviour {
 	public void BuildOuterWalls (Vector3 gridPos)
 	{
 //		float ySpawn = Random.Range (12.0f, 15.0f);
-		int numWalls = Random.Range (1,5);
+		int numWalls = Random.Range (1,4);
 		while (numWalls > 0) 
 		{
 			float xSpawn = Random.Range (-gridWidth / 2 + 2, gridWidth / 2 - 5);
@@ -191,6 +194,72 @@ public class ObstacleMaster : MonoBehaviour {
 			}
 			numCubes--;
 		}
+	}
+
+	public void BuildAllZones (Vector3 gridPos)
+	{
+		float bottomZoneValue = Random.Range (0f, 2f);
+		float middleZoneValue = Random.Range (0f, 2f);
+		float topZoneValue = Random.Range (0f, 2f);
+		float[] gridSpots = { bottomZoneValue, middleZoneValue, topZoneValue };
+		//gridgridPos.y + gridHeight / 3 * i
+
+		for (int i = 0; i < gridSpots.GetLength (0); i++) {
+			Debug.Log ("gridPos first " + gridPos);
+			gridPos.Set (gridPos.x, gridPos.y + gridHeight / 3, gridPos.z);
+			Debug.Log ("gridPos second " + gridPos);
+			if (gridSpots [i] > 1.0f && gridSpots [i] < 1.6f)
+				BuildNoGravZones (gridPos);
+			else if (gridSpots [i] >= 1.6f && gridSpots [i] <= 2f)
+				BuildDirectionZones (gridPos);
+		}
+	}
+
+	public void BuildNoGravZones (Vector3 gridPos) 
+	{
+		float xSpread = Random.Range (4.0f, 10.0f);
+		float xScale = Random.Range (5.0f, 8.0f);
+		float yScale = Random.Range (2.0f, 9.0f);
+
+		float spawnYPos = gridPos.y;
+
+		// check/make that its not touching line/ linewall
+		if (-xSpread + xScale <= -1f)
+			xSpread = xSpread - 1f;
+
+		Vector3 leftPos = new Vector3 (-xSpread, spawnYPos, 0f);
+		NoGravZone leftZone = Instantiate (noGravZone, leftPos, Quaternion.identity, null);
+		leftZone.transform.localScale = new Vector3 (xScale, yScale, 1f);
+		leftZone.rectTransform.localScale = new Vector3 (1 / xScale, 1 / yScale, 1);
+		leftZone.rectTransform.sizeDelta = new Vector2 (leftZone.rectTransform.sizeDelta.x * xScale, leftZone.rectTransform.sizeDelta.y * yScale);
+
+		Vector3 rightPos = new Vector3 (xSpread, spawnYPos, 0f);
+		NoGravZone rightZone = Instantiate (noGravZone, rightPos, Quaternion.identity, null);
+		rightZone.transform.localScale = new Vector3 (xScale, yScale, 1f);
+		rightZone.rectTransform.localScale = new Vector3 (1 / xScale, 1 / yScale, 1);
+		rightZone.rectTransform.sizeDelta = new Vector2 (rightZone.rectTransform.sizeDelta.x * xScale, rightZone.rectTransform.sizeDelta.y * yScale);
+
+	}
+
+	public void BuildDirectionZones (Vector3 gridPos)
+	{
+		float xSpread = Random.Range (3.0f, 10.0f);
+		float xScale = Random.Range (3.0f, 6.0f);
+		float yScale = Random.Range (2.0f, 10.0f);
+		float xDir = Random.Range (-1f, 1f);
+		float yDir = Random.Range (0, 1.0f);
+
+		DirectionZone leftZone = Instantiate (dirZone, Vector3.up * -1000, Quaternion.identity, null);
+		leftZone.SetReverse (false);
+		leftZone.SetPosition (new Vector3 (-xSpread, gridPos.y, 0f));
+		leftZone.SetDirection (new Vector3 (xDir, yDir, 0));
+		leftZone.SetScale (new Vector3 (xScale, yScale, 1f));
+
+		DirectionZone rightZone = Instantiate (dirZone, Vector3.up * -1000, Quaternion.identity, null);
+		rightZone.SetReverse (true);
+		rightZone.SetPosition (new Vector3 (xSpread, gridPos.y, 0f));
+		rightZone.SetDirection (new Vector2 (xDir, yDir));
+		rightZone.SetScale (new Vector3 (xScale, yScale, 1f));
 	}
 
 	private void printObstacleGrid(){
