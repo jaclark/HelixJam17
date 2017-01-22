@@ -82,6 +82,7 @@ public class ScoreManager : MonoBehaviour {
 			BlueMeter.sprite = CircleOutline;
 			OrangeMeter.sprite = CircleOutline;
 			AudioService.Instance.PlayExtraLife ();
+			TotalDistance += TotalDistance / 0.01f;
 		}
 	}
 
