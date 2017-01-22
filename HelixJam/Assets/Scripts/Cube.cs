@@ -5,6 +5,8 @@ using UnityEngine;
 public class Cube : MonoBehaviour {
 
 	public Material[] cubeMaterials;
+	public Material ACube;
+	public ParticleSystem DestroyedParticles;
 	public string cubeType;
 
 	// Use this for initialization
