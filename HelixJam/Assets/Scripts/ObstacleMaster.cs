@@ -39,12 +39,7 @@ public class ObstacleMaster : MonoBehaviour {
 		// function that checks playerPos being in current grid and builds the next set
 		if (playerPos.position.y > gridStartYPos) {
 			drawNewGrid ();
-			//clearOldGrid (prevGrid);
 		}
-		// function that checks playerPos and gets rid of previous
-//		if (playerPos.position.y > disableObjectsPoint + 20f) {
-//			clearOldGrid (prevGrid);
-//		}
 
 		if (playerPos.position.y > disableObjectsPoint) {
 			clearOldGrid (prevGrid);
@@ -59,7 +54,7 @@ public class ObstacleMaster : MonoBehaviour {
 		currGrid = nextGrid;
 		nextGrid = nextGrid = new List<GameObject> ();
 		//zeroOutOldGrid ();
-		gridStartYPos = playerPos.position.y + gridHeight;
+		gridStartYPos = playerPos.position.y + gridHeight + 10f;
 		Vector3 gridStart = new Vector3 ((float)-gridWidth / 2, gridStartYPos, 0f);
 		// BuildLineWalls first
 		BuildLineWalls (gridStart);
@@ -69,8 +64,6 @@ public class ObstacleMaster : MonoBehaviour {
 		BuildCubes(gridStart);
 		// then gravity zones and direciton zones
 		BuildAllZones(gridStart);
-		//BuildNoGravZones(new Vector3((float)-gridWidth/2, gridStartYPos, 0f));
-		//putWalls (new Vector3(-(float)gridWidth/2, gridStartYPos, 0f));
 		//printObstacleGrid ();
 	}
 
@@ -90,19 +83,6 @@ public class ObstacleMaster : MonoBehaviour {
 			}
 		}
 	}
-
-//	private void putWalls (Vector3 gridPos)
-//	{
-//		//int numWalls = diffcultyVal * 3;
-//		float startingY = gridPos.y;
-//		for (int i = 0; i < obstacleGrid.GetLength(0); i++) {
-//			for (int j = 0; j < obstacleGrid.GetLength (1); j++) {
-//				//Wall freshWall = Instantiate (wall, gridPos, Quaternion.identity, null);
-//				gridPos.Set (gridPos.x, gridPos.y + 1, gridPos.z);
-//			}
-//			gridPos.Set (gridPos.x + 1, startingY, gridPos.z);
-//		}
-//	}
 
 	// puts line walls in the grid
 	// returns the number of grid spaces used
@@ -138,7 +118,7 @@ public class ObstacleMaster : MonoBehaviour {
 	public void BuildOuterWalls (Vector3 gridPos)
 	{
 //		float ySpawn = Random.Range (12.0f, 15.0f);
-		int numWalls = Random.Range (1,4);
+		int numWalls = Random.Range (2,7);
 		while (numWalls > 0) 
 		{
 			float xSpawn = Random.Range (-gridWidth / 2 + 2, gridWidth / 2 - 5);
@@ -171,7 +151,7 @@ public class ObstacleMaster : MonoBehaviour {
 	// puts cubes in each grid
 	public void BuildCubes (Vector3 gridPos)
 	{
-		int numCubes = Random.Range (2, 5);
+		int numCubes = Random.Range (2, 6);
 		while (numCubes > 0) 
 		{
 			float xSpawn = Random.Range (-gridWidth / 2 + 3, gridWidth / 2 - 3);
@@ -208,9 +188,9 @@ public class ObstacleMaster : MonoBehaviour {
 			Debug.Log ("gridPos first " + gridPos);
 			gridPos.Set (gridPos.x, gridPos.y + gridHeight / 3, gridPos.z);
 			Debug.Log ("gridPos second " + gridPos);
-			if (gridSpots [i] > 1.0f && gridSpots [i] < 1.6f)
+			if (gridSpots [i] > 0.75f && gridSpots [i] < 1.5f)
 				BuildNoGravZones (gridPos);
-			else if (gridSpots [i] >= 1.6f && gridSpots [i] <= 2f)
+			else if (gridSpots [i] >= 1.5f && gridSpots [i] <= 2f)
 				BuildDirectionZones (gridPos);
 		}
 	}
@@ -229,12 +209,14 @@ public class ObstacleMaster : MonoBehaviour {
 
 		Vector3 leftPos = new Vector3 (-xSpread, spawnYPos, 0f);
 		NoGravZone leftZone = Instantiate (noGravZone, leftPos, Quaternion.identity, null);
+		nextGrid.Add (leftZone.gameObject);
 		leftZone.transform.localScale = new Vector3 (xScale, yScale, 1f);
 		leftZone.rectTransform.localScale = new Vector3 (1 / xScale, 1 / yScale, 1);
 		leftZone.rectTransform.sizeDelta = new Vector2 (leftZone.rectTransform.sizeDelta.x * xScale, leftZone.rectTransform.sizeDelta.y * yScale);
 
 		Vector3 rightPos = new Vector3 (xSpread, spawnYPos, 0f);
 		NoGravZone rightZone = Instantiate (noGravZone, rightPos, Quaternion.identity, null);
+		nextGrid.Add (rightZone.gameObject);
 		rightZone.transform.localScale = new Vector3 (xScale, yScale, 1f);
 		rightZone.rectTransform.localScale = new Vector3 (1 / xScale, 1 / yScale, 1);
 		rightZone.rectTransform.sizeDelta = new Vector2 (rightZone.rectTransform.sizeDelta.x * xScale, rightZone.rectTransform.sizeDelta.y * yScale);
@@ -250,12 +232,14 @@ public class ObstacleMaster : MonoBehaviour {
 		float yDir = Random.Range (0, 1.0f);
 
 		DirectionZone leftZone = Instantiate (dirZone, Vector3.up * -1000, Quaternion.identity, null);
+		nextGrid.Add (leftZone.gameObject);
 		leftZone.SetReverse (false);
 		leftZone.SetPosition (new Vector3 (-xSpread, gridPos.y, 0f));
 		leftZone.SetDirection (new Vector3 (xDir, yDir, 0));
 		leftZone.SetScale (new Vector3 (xScale, yScale, 1f));
 
 		DirectionZone rightZone = Instantiate (dirZone, Vector3.up * -1000, Quaternion.identity, null);
+		nextGrid.Add (rightZone.gameObject);
 		rightZone.SetReverse (true);
 		rightZone.SetPosition (new Vector3 (xSpread, gridPos.y, 0f));
 		rightZone.SetDirection (new Vector2 (xDir, yDir));
