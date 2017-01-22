@@ -50,8 +50,11 @@ public class Wave : MonoBehaviour
 	{
 		if (col.gameObject.tag == "cube") {
 			Cube hitCube = (Cube)col.gameObject.GetComponent<Cube> ();
-			if (hitCube.cubeType [0] == transform.name [0])
-				Destroy (hitCube.gameObject);
+			if (hitCube.cubeType [0] == transform.name [0]) {
+				hitCube.DestroyedParticles.Play ();
+				//Destroy (hitCube.gameObject);
+				hitCube.gameObject.GetComponent<MeshRenderer>().enabled = false;
+			}
 		} else if (col.gameObject.tag == "wall") {
 			Wall hitWall = (Wall)col.gameObject.GetComponent<Wall> ();
 			Renderer wallRend = hitWall.GetComponent<Renderer> ();
