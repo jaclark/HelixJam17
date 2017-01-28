@@ -74,6 +74,13 @@ public class ScoreManager : MonoBehaviour {
 		if (Lives >= MaxLives) {
 			Lives = MaxLives;
 		}
+
+		WaveMaster.Instance.LifeUpEffects ();
+	}
+
+	public bool HasLives()
+	{
+		return Lives > 0;
 	}
 
 	public void HandleExtraLife() {

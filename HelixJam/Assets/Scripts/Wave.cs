@@ -12,6 +12,8 @@ public class Wave : MonoBehaviour
 	public Action<Vector2> EnableZone = delegate {};
 	public Action<Vector2> DisableZone = delegate{};
 
+	public ParticleSystem lifeUpParticles = null;
+
 	private bool _positive = true;
 	private TrailRenderer _trailRenderer;
 	private float _maxWidth;
@@ -109,5 +111,10 @@ public class Wave : MonoBehaviour
 			DirectionZone dirZone = (DirectionZone)col.gameObject.GetComponent<DirectionZone> ();
 			DisableZone (dirZone.direction);
 		}
+	}
+
+	public void ChaChing()
+	{
+		lifeUpParticles.Play ();
 	}
 }
