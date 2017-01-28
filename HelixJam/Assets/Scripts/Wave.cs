@@ -23,7 +23,7 @@ public class Wave : MonoBehaviour
 
 		_trailRenderer = GetComponent<TrailRenderer> ();
 		_maxWidth = _trailRenderer.startWidth;
-		_widthChanger = _maxWidth / ScoreManager.Instance.Lives;
+		_widthChanger = _maxWidth / ScoreManager.Instance.MaxLives;
 
 		_positive = transform.position.x >= 0;
 	}
@@ -55,7 +55,7 @@ public class Wave : MonoBehaviour
 
 	public void GrowTrail() {
 		if(_trailRenderer.startWidth < _maxWidth) 
-			_trailRenderer.startWidth += 0.1f;
+			_trailRenderer.startWidth += _maxWidth / ScoreManager.Instance.MaxLives;
 	}
 
 	public void ShrinkTrail() {

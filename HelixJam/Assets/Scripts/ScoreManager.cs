@@ -37,6 +37,7 @@ public class ScoreManager : MonoBehaviour {
 	public Wave BWave;
 
 	public int Lives = 5;
+	public int MaxLives = 5;
 
 	void Update() {
 		DistanceScoreText.text = TotalDistance.ToString();
@@ -70,6 +71,9 @@ public class ScoreManager : MonoBehaviour {
 
 	public void AddLife() {
 		Lives++;
+		if (Lives >= MaxLives) {
+			Lives = MaxLives;
+		}
 	}
 
 	public void HandleExtraLife() {
@@ -82,7 +86,7 @@ public class ScoreManager : MonoBehaviour {
 			BlueMeter.sprite = CircleOutline;
 			OrangeMeter.sprite = CircleOutline;
 			AudioService.Instance.PlayExtraLife ();
-			TotalDistance += TotalDistance / 0.01f;
+			TotalDistance += Mathf.Floor(TotalDistance * 0.01f);
 		}
 	}
 
